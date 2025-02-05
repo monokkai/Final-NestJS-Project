@@ -1,0 +1,104 @@
+services:
+  users-mariadb:
+    container_name: users-mariadb-service
+    image: mariadb:latest
+    environment:
+      MYSQL_USER: usersService
+      MYSQL_PASSWORD: glf-Jj6A
+      MARIADB_ROOT_PASSWORD: oWhB9-HW
+      MARIADB_DATABASE: usersdb
+    ports:
+      - "3306:3306"
+
+  users-service:
+    build:
+      context: ./users-service
+    ports:
+      - ":3000"
+    container_name: users-service
+    depends_on:
+      - users-mariadb
+    environment:
+      - DATABASE_HOST=users-mariadb
+      - DATABASE_PORT=3306
+      - DATABASE_USER=usersService
+      - DATABASE_PASSWORD=glf-Jj6A
+      - DATABASE_NAME=usersdb
+
+  products-mariadb:
+    container_name: products-mariadb-service
+    image: mariadb:latest
+    environment:
+      MYSQL_USER: productsService
+      MYSQL_PASSWORD: 00nE_QmO
+      MARIADB_ROOT_PASSWORD: 6-L2fPxG
+      MARIADB_DATABASE: productsdb
+    ports:
+      - "3307:3306"
+
+  products-service:
+    build:
+      context: ./products-service
+    ports:
+      - ":3000"
+    container_name: products-service
+    depends_on:
+      - products-mariadb
+    environment:
+      - DATABASE_HOST=products-mariadb
+      - DATABASE_PORT=3306
+      - DATABASE_USER=productsService
+      - DATABASE_PASSWORD=00nE_QmO
+      - DATABASE_NAME=productsdb
+
+  orders-mongodb:
+    container_name: orders-mongodb-service
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - /data/db
+
+  orders-service:
+    build:
+      context: ./orders-service
+    ports:
+      - ":3000"
+    container_name: orders-service
+    depends_on:
+      - orders-mongodb
+
+  chats-service:
+    build:
+      context: ./chat-service
+    ports:
+      - "3004:3000"
+    container_name: chats-service
+
+  reviews-mongodb:
+    container_name: reviews-mongodb-service
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    volumes:
+      - /data/db
+
+  reviews-service:
+    build:
+      context: ./reviews-service
+    ports:
+      - ":3000"
+    container_name: reviews-service
+
+  api-gateway-service:
+    build:
+      context: ./api-gateway-service
+    ports:
+      - "3000:3000"
+    container_name: api-gateway-service
+    depends_on:
+      - users-service
+      - products-service
+      - orders-service
+      - reviews-service
+      - chats-service
