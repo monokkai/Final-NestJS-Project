@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   const config = new DocumentBuilder()
-    .setTitle('Users Service')
+    .setTitle('Orders Service')
     .setDescription('Данный сервис предоставляет работу в серверной части с product. Есть все необходимые методы, генерация с помощью faker, методы: Get, Post, Patch, Delete')
     .setVersion('1.0')
     .addTag('http://localhost:3000/goods/new')

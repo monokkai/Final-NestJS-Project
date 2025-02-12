@@ -3,17 +3,12 @@ import { IsInt, Min, IsDate } from "class-validator"
 class GoodDto {
     @IsInt()
     @Min(0)
-    idProduct: number;
+    userId: number;
     @IsDate()
-    createAt: Date;
+    date: Date;
     @IsInt()
     @Min(0)
-    idUser: number;
-    @IsDate()
-    updatedAt: Date;
-    @IsInt()
-    @Min(0)
-    quantity: number;
+    productIds: number[]
 }
 
 export default GoodDto;

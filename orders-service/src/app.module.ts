@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { BasketModule } from './basket/basket.module';
+import { BasketModule } from './orders/basket.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CacheModule } from '@nestjs/cache-manager';

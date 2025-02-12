@@ -1,13 +1,7 @@
-import { Schema } from 'mongoose';
-import GoodDto from '../dto/good.dto';
+import { Schema } from "mongoose";
 
-const GoodSchema = new Schema({
-    userId: { type: Number, require: true },
-    productsId: { type: Array<GoodDto> },
-    createAt: { type: Date },
-    orderedAt: { type: Date },
-    deliveredAt: { type: Date },
-    isProduct: { type: Array<GoodDto> },
+export const OrdersSchema = new Schema({
+    userId: { type: Number, required: true },
+    productIds: { type: Array<number>, required: true },
+    date: { type: Date, required: true }
 });
-
-export default GoodSchema;

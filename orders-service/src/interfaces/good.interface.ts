@@ -1,12 +1,9 @@
-import { Document } from 'mongoose';
-import GoodDto from '../dto/good.dto';
+import { Document } from "mongoose";
 
 interface Good extends Document {
-    readonly createAt: Date;
-    readonly id: number;
-    readonly updatedAt: Date;
-    readonly idProduct: Array<GoodDto>;
-    readonly idUser: number;
+    readonly userId: number;
+    readonly productIds: number[];
+    readonly date: Date;
 }
 
 export default Good;
