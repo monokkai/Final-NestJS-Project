@@ -49,13 +49,11 @@ Description of the project structure, main components and their work:
 
 3. Orders:
 
-- http://localhost:3000/goods/api - GET information about the entire service for programmers.
-- http://localhost:3000/goods/... -
-- http://localhost:3000/goods/... -
-- http://localhost:3000/goods/... -
-- http://localhost:3000/goods/... -
-- http://localhost:3000/goods/... -
-- http://localhost:3000/goods/... -
+- http://localhost:3000/orders - GET get all orders.
+- http://localhost:3000/orders - POST create a new order.
+- http://localhost:3000/orders/:userId - GET get orders of a specific user.
+- http://localhost:3000/orders/:orderId - PATCH update order by ID.
+- http://localhost:3000/orders/:orderId - DELETE delete order by ID.
 
 4. Chat:
 
@@ -64,7 +62,7 @@ Description of the project structure, main components and their work:
 
 1. Go to postman, connect Socket.IO.
 2. http://localhost:3004/chat.
-3. In Message: {"searchWord": "Стул"}.
+3. In Message: {"searchWord": "Chair"}.
 4. In Events: searchProduct add --> LISTEN(on).
 5. Request in Message: {"searchWord": "Chair"} and the response will come in JSON format of the product.
 
@@ -72,16 +70,22 @@ Description of the project structure, main components and their work:
 
 - http://localhost:3000/users
 - http://localhost:3000/products
-- http://localhost:3000/goods
+- http://localhost:3000/orders
 
 * These services are hosted on AGW, that is, AGW has become a replacement for NGINX for a more convenient approach and unification of essentially all 3 services.
 
 6. Reviews:
 
-- http://localhost:3000/api - GET information about the entire service for programmers.
-- http://localhost:3000/... -
-- http://localhost:3000/... -
-- http://localhost:3000/... -
-- http://localhost:3000/... -
+- http://localhost:3000/reviews - GET getting all reviews.
+- http://localhost:3000/reviews - POST creating a new review.
+- http://localhost:3000/reviews/product/:id - GET get reviews for a specific product.
+- http://localhost:3000/reviews/:id - GET get review by ID.
+- http://localhost:3000/reviews/:id - PUT update review by ID.
+- http://localhost:3000/reviews/:id - DELETE delete review by ID.
 
-7.
+7. Security:
+
+- http://localhost:3000/auth/register - POST register new user.
+- http://localhost:3000/auth/login - POST authorize user.
+- http://localhost:3000/auth/profile - GET get user profile (token required).
+- http://localhost:3000/auth/refresh - POST refresh access token.

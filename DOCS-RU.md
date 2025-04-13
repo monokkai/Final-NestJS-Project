@@ -49,13 +49,11 @@
 
    3. Orders:
 
-      - http://localhost:3000/goods/api - GET информация о всем сервисе для программистов.
-      - http://localhost:3000/goods/... -
-      - http://localhost:3000/goods/... -
-      - http://localhost:3000/goods/... -
-      - http://localhost:3000/goods/... -
-      - http://localhost:3000/goods/... -
-      - http://localhost:3000/goods/... -
+      - http://localhost:3000/orders - GET получение всех заказов.
+      - http://localhost:3000/orders - POST создание нового заказа.
+      - http://localhost:3000/orders/:userId - GET получение заказов конкретного пользователя.
+      - http://localhost:3000/orders/:orderId - PATCH обновление заказа по ID.
+      - http://localhost:3000/orders/:orderId - DELETE удаление заказа по ID.
 
    4. Chat:
 
@@ -72,16 +70,22 @@
 
       - http://localhost:3000/users
       - http://localhost:3000/products
-      - http://localhost:3000/goods
+      - http://localhost:3000/orders
 
       * Эти сервисы хостятся на AGW, то есть AGW стал заменой NGINX для более удобного подхода и объединения по сути всех 3 сервисов.
 
    6. Reviews:
 
-      - http://localhost:3000/api - GET информация о всем сервисе для программистов.
-      - http://localhost:3000/... -
-      - http://localhost:3000/... -
-      - http://localhost:3000/... -
-      - http://localhost:3000/... -
+      - http://localhost:3000/reviews - GET получение всех отзывов.
+      - http://localhost:3000/reviews - POST создание нового отзыва.
+      - http://localhost:3000/reviews/product/:id - GET получение отзывов для конкретного продукта.
+      - http://localhost:3000/reviews/:id - GET получение отзыва по ID.
+      - http://localhost:3000/reviews/:id - PUT обновление отзыва по ID.
+      - http://localhost:3000/reviews/:id - DELETE удаление отзыва по ID.
 
-   7. 
+   7. Security:
+   
+      - http://localhost:3000/auth/register - POST регистрация нового пользователя.
+      - http://localhost:3000/auth/login - POST авторизация пользователя.
+      - http://localhost:3000/auth/profile - GET получение профиля пользователя (требуется токен).
+      - http://localhost:3000/auth/refresh - POST обновление токена доступа.

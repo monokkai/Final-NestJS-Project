@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Like, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ProductDto } from './dto/product.dto';
 import { Product } from './entities/product.entity';
 import logger from 'src/logger/users.logger';
@@ -86,16 +86,9 @@ export class ProductsService {
     }
 
     public async searchProduct(word: string): Promise<Product[] | null> {
-        // const searchedProduct = this.productRepository.findOneBy({ name: name })
-        // console.log(searchedProduct)
-        // return this.productRepository.findOneBy({ name: name })
 
         try {
             console.log("keyWord")
-            // const products: Product[] | null = await this.productRepository.find({
-            //     where: { name: Like(`%${word}%`) }
-            // })
-
             const products: Product[] | null = await this.productRepository
                 .createQueryBuilder("product")
                 .where("name LIKE :word", { word: `%${word}%` })

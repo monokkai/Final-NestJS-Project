@@ -1,0 +1,92 @@
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123",
+  "email": "testuser@example.com",
+  "role": "user"
+}
+
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "username": "manager",
+  "password": "manager123",
+  "email": "manager@example.com", 
+  "role": "manager"
+}
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "manager",
+  "password": "manager123"
+}
+
+GET http://localhost:3000/auth/profile
+Authorization: Bearer <access_token>
+
+GET http://localhost:3000/products/searchall
+
+POST http://localhost:3000/products/new
+Content-Type: application/json
+
+{
+  "name": "Test Chair",
+  "description": "A test chair",
+  "price": 99.99,
+  "userId": "<user_id>"
+}
+
+POST http://localhost:3000/products/new
+Content-Type: application/json
+
+{
+  "name": "Manager Chair",
+  "description": "A chair created by the manager",
+  "price": 199.99,
+  "userId": "<manager_id>"
+}
+
+GET http://localhost:3000/products/search?searchWord=chair
+
+POST http://localhost:3000/reviews
+Content-Type: application/json
+Authorization: Bearer <user_access_token>
+
+{
+  "text": "Great product!",
+  "rating": 5,
+  "productId": "<product_id>"
+}
+
+GET http://localhost:3000/reviews
+
+PUT http://localhost:3000/reviews/<review_id>
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "text": "Updated review - still a great product!",
+  "rating": 4
+}
+
+PUT http://localhost:3000/reviews/<review_id>
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "text": "Bla bla bla",
+  "rating": 1
+} 

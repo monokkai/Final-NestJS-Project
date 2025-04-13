@@ -14,7 +14,6 @@ export class RoleGuard implements CanActivate {
             throw new ForbiddenException('User ID must be provided');
         }
 
-
         try {
             const response = await firstValueFrom(this.httpService.get(`http://users-service:3000/users/${userId}`));
             const user = response.data;
@@ -33,7 +32,7 @@ export class RoleGuard implements CanActivate {
             return true;
         } catch (error) {
             console.error(error);
-            throw new ForbiddenException('Error fetching user role'); // Обработка ошибок
+            throw new ForbiddenException('Error fetching user role');
         }
     }
 }

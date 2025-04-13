@@ -67,6 +67,8 @@ services:
     container_name: orders-service
     depends_on:
       - orders-mongodb
+    environment:
+      - MONGODB_URI=mongodb://orders-mongodb:27017/orders
 
   chats-service:
     build:
@@ -89,6 +91,31 @@ services:
     ports:
       - ":3000"
     container_name: reviews-service
+    depends_on:
+      - reviews-mongodb
+    environment:
+      - MONGODB_URI=mongodb://reviews-mongodb:27017/reviews
+
+  security-mongodb:
+    container_name: security-mongodb-service
+    image: mongo:latest
+    ports:
+      - "27019:27017"
+    volumes:
+      - /data/db
+
+  security-service:
+    build:
+      context: ./security-service
+    ports:
+      - "3006:3000"
+    container_name: security-service
+    depends_on:
+      - security-mongodb
+    environment:
+      - MONGODB_URI=mongodb://security-mongodb:27017/security
+      - JWT_SECRET=your_secure_jwt_secret_key
+      - JWT_REFRESH_SECRET=your_secure_refresh_secret_key
 
   api-gateway-service:
     build:
@@ -102,3 +129,4 @@ services:
       - orders-service
       - reviews-service
       - chats-service
+      - security-service
