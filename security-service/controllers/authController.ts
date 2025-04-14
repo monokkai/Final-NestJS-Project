@@ -4,12 +4,10 @@ import jwt from 'jsonwebtoken';
 import { JWT_SECRET, JWT_REFRESH_SECRET } from '../config/jwtConfig';
 import { RequestWithUser, AuthUser } from '../types';
 
-// Register a new user
 export const register = async (req: Request, res: Response) => {
     try {
         const { username, password, email, role } = req.body;
 
-        // Check if user already exists
         const existingUser = await User.findOne({ 
             $or: [{ username }, { email }]
         });
@@ -20,7 +18,6 @@ export const register = async (req: Request, res: Response) => {
             });
         }
 
-        // Create new user
         const newUser = new User({ 
             username, 
             password, 
@@ -42,7 +39,6 @@ export const register = async (req: Request, res: Response) => {
     }
 };
 
-// Login user and generate tokens
 export const login = async (req: RequestWithUser, res: Response) => {
     try {
         if (!req.user) {
@@ -51,10 +47,8 @@ export const login = async (req: RequestWithUser, res: Response) => {
 
         const user = req.user as AuthUser & IUser & { _id: string };
         
-        // Use the generateToken method from the user model
         const token = user.generateToken();
         
-        // Generate refresh token (long-lived)
         const refreshToken = jwt.sign(
             { id: user._id }, 
             JWT_REFRESH_SECRET, 
@@ -79,7 +73,6 @@ export const login = async (req: RequestWithUser, res: Response) => {
     }
 };
 
-// Refresh access token using refresh token
 export const refreshToken = async (req: Request, res: Response) => {
     try {
         const { refreshToken } = req.body;
@@ -88,17 +81,14 @@ export const refreshToken = async (req: Request, res: Response) => {
             return res.status(400).json({ message: "Refresh token is required" });
         }
         
-        // Verify refresh token
         const decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET) as { id: string };
         
-        // Find user
         const user = await User.findById(decoded.id);
         
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
         
-        // Generate new access token using the user's generateToken method
         const token = user.generateToken();
         
         res.status(200).json({ token });
@@ -110,7 +100,6 @@ export const refreshToken = async (req: Request, res: Response) => {
     }
 };
 
-// Get user profile
 export const getUserProfile = async (req: RequestWithUser, res: Response) => {
     try {
         if (!req.user || !req.user.id) {
@@ -132,7 +121,6 @@ export const getUserProfile = async (req: RequestWithUser, res: Response) => {
     }
 };
 
-// Verify if a user has a specific role
 export const verifyRole = async (req: Request, res: Response) => {
     try {
         const { userId, requiredRoles } = req.body;
